@@ -5,8 +5,11 @@ namespace App\Http\Controllers\ProductModule;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductModule\ProductCategoryRequest;
 use App\Http\Resources\ProductModule\ProductCategoryResource;
+use App\Models\ProductModule\ProductCategory;
 use App\Services\ProductModule\ProductCategoryService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Unlu\Laravel\Api\QueryBuilder;
 
 class ProductCategoryController extends Controller
 {
@@ -24,31 +27,31 @@ class ProductCategoryController extends Controller
      */
     public function index(ProductCategoryRequest $request)
     {
-        $params = $request->validated();
-        $items = $this->productCategoryService->index($params);
-        return (ProductCategoryResource::collection($items))->response();
+        $queryBuilder = new QueryBuilder(new ProductCategory, $request);
+        return response()->json($queryBuilder->build()->paginate());
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(Request $request)
     {
-        //
+        abort(501, "Not implemented yet");
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return ProductCategoryResource
      */
     public function show($id)
     {
-        //
+        $productCategory = $this->productCategoryService->get($id);
+        return new ProductCategoryResource($productCategory);
     }
 
     /**
@@ -56,21 +59,21 @@ class ProductCategoryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
-        //
+        abort(501, "Not implemented yet");
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
-        //
+        abort(501, "Not implemented yet");
     }
 }

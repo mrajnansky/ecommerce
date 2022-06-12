@@ -11,4 +11,9 @@ class ProductCategoryRepository implements ProductCategoryRepositoryInterface
     {
         return ProductCategory::all();
     }
+
+    public function get($id) : ?ProductCategory
+    {
+        return ProductCategory::find($id);
+    }
 }

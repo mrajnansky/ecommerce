@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Unlu\Laravel\Api\ApiQueryBuilderServiceProvider::class,
 
         /*
          * Application Service Providers...
