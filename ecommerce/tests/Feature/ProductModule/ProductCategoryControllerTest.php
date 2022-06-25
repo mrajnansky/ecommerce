@@ -4,7 +4,6 @@ namespace Tests\Feature\ProductModule;
 
 use App\Models\ProductModule\ProductCategory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ProductCategoryControllerTest extends TestCase
@@ -30,8 +29,16 @@ class ProductCategoryControllerTest extends TestCase
         $this->assertEquals(1, count(json_decode($response->getContent())->data));
     }
 
-    public function testCreate(){
-        $this->markTestSkipped();
+    public function testStore(){
+        $productCategory = ProductCategory::factory()->makeOne();
+        $response = $this->postJson('api/v1/products/categories', [
+            'code' => $productCategory->code,
+            'name' => $productCategory->name,
+            'description' => $productCategory->description,
+            'product_category_id' => $productCategory->product_category_id,
+            'show' => $productCategory->show,
+        ]);
+        $response->assertCreated();
     }
 
     public function testGet(){
@@ -45,11 +52,31 @@ class ProductCategoryControllerTest extends TestCase
     }
 
     public function testUpdate(){
-        $this->markTestSkipped();
+        $originalProductCategory = ProductCategory::factory()->create();
+        $productCategory = ProductCategory::factory()->makeOne();
+        $response = $this->putJson("api/v1/products/categories/{$originalProductCategory->id}", [
+            'code' => $productCategory->code,
+            'name' => $productCategory->name,
+            'description' => $productCategory->description,
+            'product_category_id' => $productCategory->product_category_id,
+            'show' => $productCategory->show,
+        ]);
+
+        $response->assertOk();
+
+        $originalProductCategory->refresh();
+        $this->assertEquals($productCategory->name, $originalProductCategory->name);
+        $this->assertEquals($productCategory->code, $originalProductCategory->code);
     }
 
     public function testDestroy(){
-        $this->markTestSkipped();
+        $productCategory = ProductCategory::factory()->create();
+        $productCategoryId = $productCategory->id;
+        $response = $this->deleteJson("api/v1/products/categories/{$productCategoryId}");
+        $response->assertOk();
+
+        $response = $this->getJson("api/v1/products/categories/{$productCategoryId}");
+        $response->assertNotFound();
     }
 
 }

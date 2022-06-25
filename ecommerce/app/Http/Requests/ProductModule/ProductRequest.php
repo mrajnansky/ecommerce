@@ -2,21 +2,21 @@
 
 namespace App\Http\Requests\ProductModule;
 
-use App\Repository\Interfaces\ProductModule\ProductCategoryRepositoryInterface;
+use App\Repository\Interfaces\ProductModule\ProductRepositoryInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductCategoryRequest extends FormRequest
+class ProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize(ProductCategoryRepositoryInterface $productCategoryRepository)
+    public function authorize(ProductRepositoryInterface $productRepository)
     {
         if(
-            ($this->route('category', false)) &&
-            !$productCategoryRepository->get($this->route('category'))
+            ($this->route('product', false)) &&
+            !$productRepository->get($this->route('product'))
         ){
             abort(404);
         }
@@ -32,13 +32,17 @@ class ProductCategoryRequest extends FormRequest
     {
         if($this->isMethod('POST') || $this->isMethod('PUT')){
             return [
-                'code' => 'required|min:3|max:255' . ($this->isMethod('POST') ? '|unique:product_categories,code' : ''),
+                'code' => 'required|min:3|max:255' . ($this->isMethod('POST') ? '|unique:products,code' : ''),
                 'name' => 'required|min:3|max:255',
+                'stock' => 'sometimes|integer|min:0',
+                'price' => 'numeric|min:0',
                 'description' => 'sometimes|max:500',
-                'product_category_id' => 'nullable|exists:product_categories,id',
                 'show' => 'sometimes|boolean',
+                'product_categories' => 'sometimes',
+                'product_categories.*.id' => 'required_with:product_categories|exists:product_categories,id',
             ];
         }
+
         return [
             //
         ];

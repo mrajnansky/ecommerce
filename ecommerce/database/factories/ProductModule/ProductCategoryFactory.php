@@ -20,6 +20,8 @@ class ProductCategoryFactory extends Factory
         return [
             'code' => Str::random(10),
             'name' => $this->faker->name(),
+            'description' => $this->faker->text(500),
+            'show' => $this->faker->boolean(75),
         ];
     }
 }

@@ -2,21 +2,32 @@
 
 namespace App\Models\ProductModule;
 
+use App\Models\General\UuidIdentifiedModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Ramsey\Uuid\Uuid;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProductCategory extends Model
+class ProductCategory extends UuidIdentifiedModel
 {
     use HasFactory;
-    protected $keyType = 'string';
-    public $incrementing = false;
+    use SoftDeletes;
+    protected $fillable = [
+        'code',
+        'name',
+        'product_category_id'
+    ];
 
-    protected static function boot()
-    {
-        parent::boot();
-        static::creating(function (Model $model){
-            $model->setAttribute($model->getKeyName(), Uuid::uuid4());
-        });
+    protected $dates = ['deleted_at'];
+
+    public function productCategory(){
+        return $this->belongsTo(ProductCategory::class, 'product_category_id', 'id');
+    }
+
+    public function products(){
+        return $this->belongsToMany(
+            Product::class,
+            'products_product_categories',
+            'product_category_id',
+            'product_id'
+        );
     }
 }

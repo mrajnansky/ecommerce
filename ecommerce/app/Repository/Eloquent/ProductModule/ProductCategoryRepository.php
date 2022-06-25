@@ -3,17 +3,13 @@
 namespace App\Repository\Eloquent\ProductModule;
 
 use App\Models\ProductModule\ProductCategory;
+use App\Repository\Eloquent\ModelRepository;
 use App\Repository\Interfaces\ProductModule\ProductCategoryRepositoryInterface;
 
-class ProductCategoryRepository implements ProductCategoryRepositoryInterface
+class ProductCategoryRepository extends ModelRepository implements ProductCategoryRepositoryInterface
 {
-    public function all($conditions = [])
+    public function __construct(ProductCategory $model)
     {
-        return ProductCategory::all();
-    }
-
-    public function get($id) : ?ProductCategory
-    {
-        return ProductCategory::find($id);
+        parent::__construct($model);
     }
 }

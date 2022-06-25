@@ -35,21 +35,24 @@ class ProductCategoryController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return Response
+     * @return ProductCategoryResource
      */
-    public function store(Request $request)
+    public function store(ProductCategoryRequest $request)
     {
-        abort(501, "Not implemented yet");
+        $fields = $request->validated();
+        $productCategory = $this->productCategoryService->make($fields);
+        return new ProductCategoryResource($productCategory);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  $id
      * @return ProductCategoryResource
      */
-    public function show($id)
+    public function show(ProductCategoryRequest $request, $id)
     {
+        $request->validated();
         $productCategory = $this->productCategoryService->get($id);
         return new ProductCategoryResource($productCategory);
     }
@@ -58,22 +61,25 @@ class ProductCategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Response
+     * @param  $id
+     * @return ProductCategoryResource
      */
-    public function update(Request $request, $id)
+    public function update(ProductCategoryRequest $request, $id)
     {
-        abort(501, "Not implemented yet");
+        $fields = $request->validated();
+        $productCategory = $this->productCategoryService->update($id, $fields);
+        return new ProductCategoryResource($productCategory);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(ProductCategoryRequest $request, $id)
     {
-        abort(501, "Not implemented yet");
+        $request->validated();
+        return $this->productCategoryService->delete($id);
     }
 }

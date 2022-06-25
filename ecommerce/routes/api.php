@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductModule\ProductCategoryController;
+use App\Http\Controllers\ProductModule\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,5 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'products'], function () {
         Route::apiResource('categories', ProductCategoryController::class);
     });
+    Route::apiResource('products', ProductController::class);
 });
