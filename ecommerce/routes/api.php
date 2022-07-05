@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\UserTokenController;
 use App\Http\Controllers\ProductModule\ProductCategoryController;
 use App\Http\Controllers\ProductModule\ProductController;
 use Illuminate\Http\Request;
@@ -16,12 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 Route::group(['prefix' => 'v1'], function () {
-    Route::group(['prefix' => 'products'], function () {
-        Route::apiResource('categories', ProductCategoryController::class);
+    Route::apiResource('auth/tokens', UserTokenController::class);
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::group(['prefix' => 'products'], function () {
+            Route::apiResource('categories', ProductCategoryController::class);
+        });
+        Route::apiResource('products', ProductController::class);
     });
-    Route::apiResource('products', ProductController::class);
 });
