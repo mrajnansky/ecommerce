@@ -70,13 +70,13 @@ class ProductCategoryControllerTest extends TestCase
     }
 
     public function testDestroy(){
-        $productCategory = ProductCategory::factory()->create();
-        $productCategoryId = $productCategory->id;
-        $response = $this->deleteJson("api/v1/products/categories/{$productCategoryId}");
-        $response->assertOk();
-
-        $response = $this->getJson("api/v1/products/categories/{$productCategoryId}");
-        $response->assertNotFound();
+            $productCategory = ProductCategory::factory()->create();
+            $productCategoryId = $productCategory->id;
+            $response = $this->deleteJson("api/v1/products/categories/{$productCategoryId}");
+            $response->assertOk();
+    
+            $response = $this->getJson("api/v1/products/categories/{$productCategoryId}");
+            $response->assertNotFound();
     }
 
 }
