@@ -6,10 +6,11 @@ export default function ProductsList() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false)
     const [products, setProducts] = useState([])
+
     useEffect(async () => {
         setIsLoading(true)
-        listProducts().then(async (response) => {
-            const data = await response.json()
+        listProducts().then(response => response.json())
+            .then(data => {
             console.log(response, data)
             setProducts(data.data)
             setIsLoading(false)

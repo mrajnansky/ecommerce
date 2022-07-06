@@ -1,18 +1,21 @@
 import Spinner from "react-bootstrap/Spinner";
 import Button from "react-bootstrap/Button";
 
-export default function CustomButton(props) {
+export default function CustomButton({variant, type, size, onClick, disabled, loading, loadingText, text, children, ...props}) {
     return <Button
-        variant={props.variant ? props.variant : 'primary'}
-        type={props.type ? props.type : 'primary'}
-        size={props.size ? props.size : 'lg'}
-        onClick={props.onClick}
-        disabled={props.disabled ? props.disabled : false}>
-        {props.loading ? <div className="align-items-center">
+        variant={variant ? variant : 'primary'}
+        type={type ? type : 'primary'}
+        size={size ? size : 'lg'}
+        onClick={onClick}
+        disabled={disabled ? disabled : false}
+        {...props}
+        >
+        {loading ? <div className="align-items-center">
             <Spinner animation="border" role="status">
                 <span className="visually-hidden">Loading...</span>
             </Spinner>
-            <span>{props.loadingText}</span>
-        </div> : <span>{props.text}</span>}
+            <span>{loadingText}</span>
+        </div> : <span>{text}</span>}
+        {children}
     </Button>
 }

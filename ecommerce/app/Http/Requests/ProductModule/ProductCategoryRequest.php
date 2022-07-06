@@ -4,6 +4,7 @@ namespace App\Http\Requests\ProductModule;
 
 use App\Repository\Interfaces\ProductModule\ProductCategoryRepositoryInterface;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 class ProductCategoryRequest extends FormRequest
 {
@@ -35,7 +36,7 @@ class ProductCategoryRequest extends FormRequest
                 'code' => 'required|min:3|max:255' . ($this->isMethod('POST') ? '|unique:product_categories,code' : ''),
                 'name' => 'required|min:3|max:255',
                 'description' => 'sometimes|max:500',
-                'product_category_id' => 'nullable|exists:product_categories,id',
+                'product_category_id' => 'sometimes|exists:product_categories,id',
                 'show' => 'sometimes|boolean',
             ];
         }

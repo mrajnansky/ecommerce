@@ -47,12 +47,18 @@ class ProductCategoryService
     private function setValues($productCategory, $fields){
         $productCategory->code = $fields['code'];
         $productCategory->name = $fields['name'];
-        $productCategory->description = $fields['description'];
+        if(isset($fields['description'])){
+            $productCategory->description = $fields['description'];
+        }
         if(isset($fields['product_category_id'])) {
             $productCategory->product_category_id = $fields['product_category_id'];
         }else{
             $productCategory->product_category_id = null;
         }
-        $productCategory->show = $fields['show'];
+        if(isset($fields['show'])) {
+            $productCategory->show = $fields['show'];
+        }else{
+            $productCategory->show = 1;
+        }
     }
 }
