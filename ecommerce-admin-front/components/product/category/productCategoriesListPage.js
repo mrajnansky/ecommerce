@@ -20,6 +20,10 @@ export default function ProductCategoriesListPage(props) {
                 setNextPageNumber(data.current_page + 1)
                 setIsLoading(false)
             })
+            .catch(error => {
+                setProductCategories([...productCategories])
+                setIsLoading(false)
+            })
     }
     useEffect(async () => {
         await listProducts()

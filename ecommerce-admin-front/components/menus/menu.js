@@ -2,11 +2,16 @@ import {Button, Container, Nav, Navbar, Offcanvas} from 'react-bootstrap';
 import {useState} from 'react'
 import Link from "next/link";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faList} from "@fortawesome/free-solid-svg-icons";
+import {faList, faLockOpen} from "@fortawesome/free-solid-svg-icons";
+import {logout as doLogout} from "../../services/api/authService";
 export default function Menu() {
     const [show, setShow] = useState(false);
     const closeSidebar = () => setShow(false);
     const showSidebar = () => setShow(true);
+    const logout = () => {
+        doLogout()
+        window.location.reload()
+    }
     return (
         <>
             <Navbar bg="dark" sticky="top">
@@ -17,6 +22,9 @@ export default function Menu() {
                     <Navbar.Brand className={'text-white'}>
                         Admin
                     </Navbar.Brand>
+                    <Button variant={"outline-light"} className={'mx-2'} onClick={logout}>
+                        <FontAwesomeIcon icon={faLockOpen} />
+                    </Button>
                 </Container>
             </Navbar>
             <Offcanvas show={show} onHide={closeSidebar}>

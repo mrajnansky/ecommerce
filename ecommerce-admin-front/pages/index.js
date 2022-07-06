@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Link from 'next/link';
 export default function Home({userData}) {
   return (
     <div className="container">
@@ -8,10 +7,7 @@ export default function Home({userData}) {
       </Head>
 
       <main>
-        <h2>This sould serve a menu</h2>
-        <Link href="/products">
-          <a>Product list</a>
-        </Link>
+        <h1>Welcome!</h1>
       </main>
       
     </div>

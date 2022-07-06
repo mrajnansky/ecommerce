@@ -21,5 +21,8 @@ export function getToken() {
         return cookieManager.getCookie('userToken')
     }
     return false;
+}
 
+export function logout() {
+    cookieManager.deleteCookie('userToken')
 }
