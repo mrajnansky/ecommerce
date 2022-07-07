@@ -13,7 +13,12 @@ export default function ProductCategoriesListPage(props) {
     const [isLoading, setIsLoading] = useState(false)
     const listProducts = async () => {
         setIsLoading(true)
-        listProductCategories({page: nextPageNumber, limit:2, deleted_at:"[null]"}).then(response => response.json())
+        listProductCategories({
+            page: nextPageNumber,
+            limit:2,
+            deleted_at:"[null]",
+            order_by:"name,asc",
+        }).then(response => response.json())
             .then(data => {
                 setProductCategories([...productCategories, ...data.data])
                 setHasNextPage(data.current_page < data.last_page)

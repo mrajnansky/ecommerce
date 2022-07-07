@@ -18,7 +18,8 @@ class CreateProductCategoriesTable extends Migration
             $table->char('code', 10);
             $table->string('name', 255);
             $table->text('description')->nullable(true);
-            $table->foreignUuid('product_category_id')->nullable(true)->references('id')->on('product_categories');
+            //$table->foreignUuid('product_category_id')->nullable(true)->references('id')->on('product_categories');
+	    $table->text('product_category_id')->nullable(true);
             $table->boolean('show')->default(true);
 
             $table->timestamps();

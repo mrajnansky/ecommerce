@@ -26,6 +26,11 @@ export default function LoginPage( props ){
     }
 
     return (<>
+        <Row className={'mb-5'}>
+            <Col className={'text-center'}>
+                <h1>Admin</h1>
+            </Col>
+        </Row>
         <Row>
           <Col>
           <Card>

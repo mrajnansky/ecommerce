@@ -3,13 +3,13 @@ import {Toaster} from "react-hot-toast";
 import Menu from '../menus/menu'
 import Head from "next/head";
 import './layout.module.css'
-export default function Layout({children}) {
+export default function Layout({children, isLoginPage = false}) {
     return (<div className={'layout'}>
         <Head>
             <title>Admin</title>
         </Head>
         <Toaster position="top-right"/>
-        <Menu/>
+        {!isLoginPage ? <Menu/> : null}
         <Container fluid>
             <Row>
                 <Col>

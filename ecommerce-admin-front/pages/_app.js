@@ -14,7 +14,7 @@ export default function App({Component, pageProps}) {
     }, []);
 
     return (
-        <Layout>
+        <Layout isLoginPage={router.pathname === '/user/login'}>
             <Component {...pageProps} />
         </Layout>
     )
