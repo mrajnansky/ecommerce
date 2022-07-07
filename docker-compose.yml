@@ -52,6 +52,17 @@ services:
     volumes:
       - ./docker/mysql/data:/var/lib/mysql
       - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+  #Admin front NextJs
+  admin-front:
+    ports:
+      - 3000:3000
+    build:
+      context: .
+      dockerfile: ./docker/admin-front/Dockerfile
+    volumes:
+      - ./ecommerce-admin-front:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next
 
 #Docker Networks
 networks:
