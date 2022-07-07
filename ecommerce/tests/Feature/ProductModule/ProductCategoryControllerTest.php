@@ -48,7 +48,6 @@ class ProductCategoryControllerTest extends TestCase
             'code' => $productCategory->code,
             'name' => $productCategory->name,
             'description' => $productCategory->description,
-            'product_category_id' => $productCategory->product_category_id,
             'show' => $productCategory->show,
         ]);
         $response->assertCreated();
@@ -71,7 +70,6 @@ class ProductCategoryControllerTest extends TestCase
             'code' => $productCategory->code,
             'name' => $productCategory->name,
             'description' => $productCategory->description,
-            'product_category_id' => $productCategory->product_category_id,
             'show' => $productCategory->show,
         ]);
 
